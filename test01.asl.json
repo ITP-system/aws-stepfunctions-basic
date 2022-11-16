@@ -1,0 +1,16 @@
+{
+    "StartAt": "ParametersTest",
+    "States": {
+        "ParametersTest": {
+            "Type": "Pass",
+            "Parameters": {
+                "InputData.$": "$$.Execution.Input"
+            },
+            "ResultPath": "$",
+            "Next": "Completed"
+        },
+        "Completed": {
+            "Type": "Succeed"
+        }
+    }
+}

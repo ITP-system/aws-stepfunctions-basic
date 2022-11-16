@@ -1,0 +1,16 @@
+{
+    "StartAt": "ParametersTest",
+    "States": {
+        "ParametersTest": {
+            "Type": "Pass",
+            "Parameters": {
+                "input_field1.$": "$.input_field1"
+            },
+            "ResultPath": "$",
+            "Next": "Completed"
+        },
+        "Completed": {
+            "Type": "Succeed"
+        }
+    }
+}
