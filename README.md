@@ -1,9 +1,64 @@
 # Step Functions の 制御パラメータを理解する
 
-## Parameters を使いつつ、Input パラメータを引き継ぐ方法を確認する
+## 任意の　 Input パラメータ を Output 　パラメータに 引き継ぐ方法
 
-Input パラメータの特定のキーの値を引き継ぐ時に、Input パラメータにそのキーがセットされていないとエラーとなる.
-Input パラメータが設定されたり設定されなかったりするときに、Parameters も使う時にどのように引き継いでいったら良いかを確認する.
+Input パラメータ の値を Parameters などで参照する場合、そのキーが Input にないとエラーとなります.
+
+```json
+{
+  "StartAt": "ParametersTest",
+  "States": {
+    "ParametersTest": {
+      "Type": "Pass",
+      "Parameters": {
+        "fieldname.$": "$.fieldname"
+      },
+      "ResultPath": "$",
+      "Next": "Completed"
+    },
+    "Completed": {
+      "Type": "Succeed"
+    }
+  }
+}
+```
+
+```
+"An error occurred while executing the state 'XXXXXXX' (entered at the event id #2). The JSONPath '$.fieldname' specified for the field 'fieldname.$' could not be found in the input
+```
+
+このような場合、コンテキストオブジェクトを使用して Output パラメータに引き継ぐことが可能です.
+
+```json
+{
+  "StartAt": "ParametersTest",
+  "States": {
+    "ParametersTest": {
+      "Type": "Pass",
+      "Parameters": {
+        "Input.$": "$$.Execution.Input"
+      },
+      "ResultPath": "$",
+      "Next": "Completed"
+    },
+    "Completed": {
+      "Type": "Succeed"
+    }
+  }
+}
+```
+
+## リファレンス
+
+Context オブジェクト
+
+https://docs.aws.amazon.com/ja_jp/step-functions/latest/dg/input-output-contextobject.html
+
+AWS step functions and optional parameters
+
+https://stackoverflow.com/questions/59056043/aws-step-functions-and-optional-parameters
+
+## サンプルの実行の仕方
 
 - Step Function ローカルの起動
 
