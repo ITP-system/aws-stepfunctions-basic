@@ -42,6 +42,9 @@ https://aws.amazon.com/jp/blogs/compute/using-jsonpath-effectively-in-aws-step-f
 JsonPath
 https://github.com/json-path/JsonPath
 
+マップ
+https://docs.aws.amazon.com/ja_jp/step-functions/latest/dg/amazon-states-language-map-state.html
+
 - ステートマシンの作成
 
 ```sh
