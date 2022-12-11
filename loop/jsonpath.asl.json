@@ -1,0 +1,44 @@
+{
+    "StartAt": "Init",
+    "States": {
+        "Init": {
+            "Type": "Pass",
+            "Result": [
+                "1",
+                "2",
+                "3",
+                "DONE"
+            ],
+            "ResultPath": "$.Items",
+            "Next": "Loop Condition"
+        },
+        "Loop Condition": {
+            "Type": "Choice",
+            "Choices": [
+                {
+                    "Not": {
+                        "Variable": "$.Items[0]",
+                        "StringEquals": "DONE"
+                    },
+                    "Next": "RunJob"
+                }
+            ],
+            "Default": "Finish"
+        },
+        "Finish": {
+            "Type": "Succeed"
+        },
+        "RunJob": {
+            "Type": "Wait",
+            "Seconds": 10,
+            "Next": "Pop Loop Element"
+        },
+        "Pop Loop Element": {
+            "Type": "Pass",
+            "Parameters": {
+                "Items.$": "$.Items[1:]"
+            },
+            "Next": "Loop Condition"
+        }
+    }
+}
