@@ -14,13 +14,14 @@
                     }
                 }
             },
-            "End": true,
             "ItemsPath": "$.key2",
+            "MaxConcurrency": 1,
             "Parameters": {
                 "array.$": "$$.Map.Item.Value",
                 "key.$": "$.key1"
             },
-            "MaxConcurrency": 1
+            "ResultPath": "$.results",
+            "End": true
         }
     }
 }
