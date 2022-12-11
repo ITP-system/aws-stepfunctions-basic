@@ -1,0 +1,26 @@
+{
+    "Comment": "A description of my state machine",
+    "StartAt": "Map",
+    "States": {
+        "Map": {
+            "Type": "Map",
+            "Iterator": {
+                "StartAt": "RunJob",
+                "States": {
+                    "RunJob": {
+                        "Type": "Wait",
+                        "Seconds": 10,
+                        "End": true
+                    }
+                }
+            },
+            "End": true,
+            "ItemsPath": "$.key2",
+            "Parameters": {
+                "array.$": "$$.Map.Item.Value",
+                "key.$": "$.key1"
+            },
+            "MaxConcurrency": 1
+        }
+    }
+}
